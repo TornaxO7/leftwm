@@ -1,9 +1,9 @@
-use super::BaseCommand;
-use crate::Config;
 use anyhow::{ensure, Context, Result};
-use leftwm_core::layouts::Layout;
+use leftwm_core::{layouts::Layout, Config};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
+
+use crate::BaseCommand;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Keybind {
@@ -23,7 +23,7 @@ macro_rules! ensure_non_empty {
 
 impl Keybind {
     #![allow(clippy::too_many_lines)]
-    pub fn try_convert_to_core_keybind(&self, config: &Config) -> Result<leftwm_core::Keybind> {
+    pub fn try_convert_to_core_keybind(&self, config: &dyn Config) -> Result<leftwm_core::Keybind> {
         let command = match &self.command {
             BaseCommand::Execute => {
                 leftwm_core::Command::Execute(ensure_non_empty!(self.value.clone()))

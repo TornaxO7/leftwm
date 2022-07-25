@@ -1,9 +1,10 @@
-use super::{
-    default_terminal, exit_strategy, BaseCommand, Config, Default, FocusBehaviour, Keybind,
-    LayoutMode, ThemeSetting, LAYOUTS,
-};
+use leftwm_core::{config::FocusBehaviour, layouts::LAYOUTS, models::LayoutMode};
 
-impl Default for Config {
+use crate::{config::keybind::Keybind, BaseCommand, ThemeSetting};
+
+use super::{default_terminal, exit_strategy, filtetypes::toml::TomlConfig};
+
+impl Default for TomlConfig {
     // We allow this because this function would be difficult to reduce. If someone would like to
     // move the commands builder out, perhaps make a macro, this function could be reduced in size
     // considerably.

@@ -1,8 +1,8 @@
-use super::Config;
+use super::{Config, filtetypes::toml::TomlConfig};
 use leftwm_core::utils;
 use std::collections::HashSet;
 
-impl Config {
+impl TomlConfig {
     pub fn check_mousekey(&self, verbose: bool) {
         if verbose {
             println!("Checking if mousekey is set.");
