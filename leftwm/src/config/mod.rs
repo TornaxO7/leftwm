@@ -29,6 +29,7 @@ use xdg::BaseDirectories;
 
 /// Path to file where state will be dumper upon soft reload.
 const STATE_FILE: &str = "/tmp/leftwm.state";
+pub const CONFIG_DIR_PATH: &str = BaseDirectories::with_prefix("leftwm").unwrap();
 
 /// Selecting by `WM_CLASS` and/or window title, allow the user to define if a
 /// window should spawn on a specified tag and/or its floating state.
@@ -112,9 +113,9 @@ pub struct Config {
 
 #[must_use]
 pub fn get_config() -> Config {
-    // load_from_file()
-    //     .map_err(|err| eprintln!("ERROR LOADING CONFIG: {:?}", err))
-    //     .unwrap_or_default()
+    load_config_file()
+        .map_err(|err| eprintln!("ERROR LOADING CONFIG: {:?}", err))
+        .unwrap_or_default()
 }
 
 impl Config {

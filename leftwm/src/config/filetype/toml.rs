@@ -1,3 +1,10 @@
+use std::{fs::{File, self}, path::Path};
+
+use anyhow::Result;
+use xdg::BaseDirectories;
+
+use crate::{Config, CONFIG_DIR_PATH};
+
 /// # Panics
 ///
 /// Function can only panic if toml cannot be serialized. This should not occur as it is defined
@@ -11,23 +18,13 @@
 /// Function can also error from inability to save config.toml (if it is the first time running
 /// `LeftWM`).
 fn load_from_file() -> Result<Config> {
-    let path = BaseDirectories::with_prefix("leftwm")?;
+    let config_filename = CONFIG_DIR_PATH.place_config_file("config.toml")?;
 
-    #[cfg(all(feature = "toml-config", not(feature = "ron-config")))]
-    let config_filename = path.place_config_file("config.toml")?;
-    #[cfg(all(feature = "ron-config", not(feature = "toml-config")))]
-    let config_filename = path.place_config_file("config.ron")?;
-
-    #[cfg(any(feature = "ron-config", feature = "toml-config"))]
     if Path::new(&config_filename).exists() {
         let contents = fs::read_to_string(config_filename)?;
 
-        #[cfg(all(feature = "toml-config", not(feature = "ron-config")))]
         let config = toml::from_str(&contents)?;
-        #[cfg(all(feature = "ron-config", not(feature = "toml-config")))]
-        let config = ron::from_str(&contents)?;
 
-        #[cfg(any(feature = "ron-config", feature = "toml-config"))]
         if check_workspace_ids(&config) {
             Ok(config)
         } else {
@@ -36,18 +33,13 @@ fn load_from_file() -> Result<Config> {
         }
     } else {
         let config = Config::default();
-        #[cfg(all(feature = "toml-config", not(feature = "ron-config")))]
         let toml = toml::to_string(&config).unwrap();
-        #[cfg(all(feature = "ron-config", not(feature = "toml-config")))]
         let ron = ron::to_string(&config).unwrap();
 
         let mut file = File::create(&config_filename)?;
-        #[cfg(all(feature = "toml-config", not(feature = "ron-config")))]
         file.write_all(toml.as_bytes())?;
-        #[cfg(all(feature = "ron-config", not(feature = "toml-config")))]
         file.write_all(ron.as_bytes())?;
 
-        #[cfg(any(feature = "ron-config", feature = "toml-config"))]
         Ok(config)
     }
 }
