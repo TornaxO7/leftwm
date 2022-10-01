@@ -7,10 +7,9 @@ impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
         let mut fullscreen_changed = false;
         let strut_changed = change.strut.is_some();
         let windows = self.state.windows.clone();
-        if let Some(window) = self
-            .state
-            .windows
-            .iter_mut()
+
+        if let Some(window) = windows
+            .iter()
             .find(|w| w.handle == change.handle)
         {
             if let Some(ref states) = change.states {

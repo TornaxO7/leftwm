@@ -1,8 +1,12 @@
-use crate::{models::{WindowHandle, WindowType}, Config, DisplayServer, Manager, Window, utils::helpers};
+use crate::{
+    models::{WindowHandle, WindowType},
+    utils::helpers,
+    Config, DisplayServer, Manager, Window,
+};
 
+mod window_changed_handler;
 mod window_create_handler;
 mod window_destroy_handler;
-mod window_changed_handler;
 mod window_move_handler;
 mod window_resize_handler;
 
@@ -95,12 +99,12 @@ mod tests {
         manager.state.insert_behavior = InsertBehavior::Bottom;
 
         manager.screen_create_handler(Screen::default());
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(1), None, None),
             -1,
             -1,
         );
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(2), None, None),
             -1,
             -1,
@@ -119,12 +123,12 @@ mod tests {
         manager.state.insert_behavior = InsertBehavior::Top;
 
         manager.screen_create_handler(Screen::default());
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(1), None, None),
             -1,
             -1,
         );
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(2), None, None),
             -1,
             -1,
@@ -142,17 +146,17 @@ mod tests {
         manager.state.insert_behavior = InsertBehavior::AfterCurrent;
 
         manager.screen_create_handler(Screen::default());
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(1), None, None),
             -1,
             -1,
         );
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(2), None, None),
             -1,
             -1,
         );
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(3), None, None),
             -1,
             -1,
@@ -174,18 +178,18 @@ mod tests {
         manager.state.insert_behavior = InsertBehavior::BeforeCurrent;
 
         manager.screen_create_handler(Screen::default());
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(1), None, None),
             -1,
             -1,
         );
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(2), None, None),
             -1,
             -1,
         );
 
-        manager.window_created_handler(
+        manager.window_create_handler(
             Window::new(WindowHandle::MockHandle(3), None, None),
             -1,
             -1,
