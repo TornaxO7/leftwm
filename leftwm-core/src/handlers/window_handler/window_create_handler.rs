@@ -12,11 +12,6 @@ impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
     /// Process a collection of events, and apply them changes to a manager.
     /// Returns true if changes need to be rendered.
     pub fn window_created_handler(&mut self, mut window: Window, x: i32, y: i32) -> bool {
-        // Don't add the window if the manager already knows about it.
-        if self.state.windows.iter().any(|w| w.handle == window.handle) {
-            return false;
-        }
-
         // Setup any predifined hooks.
         self.config.setup_predefined_window(&mut window);
         let mut is_first = false;
