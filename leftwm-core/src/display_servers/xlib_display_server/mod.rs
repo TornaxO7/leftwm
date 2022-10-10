@@ -132,10 +132,9 @@ impl DisplayServer for XlibDisplayServer {
 
     fn wait_readable(&self) -> Pin<Box<dyn Future<Output = ()>>> {
         let task_notify = self.xw.task_notify.clone();
-        // Box::pin(async move {
-        //     task_notify.notified().await;
-        // })
-        Box::pin(task_notify.notified())
+        Box::pin(async move {
+            task_notify.notified().await;
+        })
     }
 
     fn flush(&self) {

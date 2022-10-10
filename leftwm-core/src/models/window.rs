@@ -27,10 +27,9 @@ impl std::convert::From<xlib::Window> for WindowHandle {
 
 impl WindowHandle {
     pub fn xlib_handle(self) -> Option<xlib::Window> {
-        if let Self::XlibHandle(handle) = self {
-            Some(handle)
-        } else {
-            None
+        match self {
+            WindowHandle::MockHandle(_) => None,
+            WindowHandle::XlibHandle(h) => Some(h),
         }
     }
 }

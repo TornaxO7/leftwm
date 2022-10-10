@@ -41,7 +41,6 @@ impl WindowChange {
 
     pub fn update(self, window: &mut Window, container: Option<Xyhw>) -> bool {
         let mut changed = false;
-
         if let Some(trans) = &self.transient {
             let changed_trans = window.transient.is_none() || &window.transient != trans;
             changed = changed || changed_trans;
