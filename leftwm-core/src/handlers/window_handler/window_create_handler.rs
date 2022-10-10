@@ -225,6 +225,9 @@ impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
             return;
         }
 
+        // Tell the WM to reevaluate the stacking order, so the new window is put in the correct layer
+        self.state.sort_windows();
+
         // Setup a window is workspace is `None`. This shouldn't really happen.
         window.tag = Some(1);
         if self.is_scratchpad(window) {
