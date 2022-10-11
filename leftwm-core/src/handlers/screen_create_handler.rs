@@ -1,6 +1,8 @@
-use super::{Manager, Screen, Workspace};
+
+use crate::{Manager, Workspace};
 use crate::config::Config;
 use crate::display_servers::DisplayServer;
+use crate::models::Screen;
 
 impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
     /// Process a collection of events, and apply the changes to a manager.

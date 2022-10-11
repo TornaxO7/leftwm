@@ -1,7 +1,7 @@
 #![allow(clippy::wildcard_imports)]
 
-use super::*;
-use crate::models::TagId;
+use crate::{Workspace, Window};
+use crate::models::{TagId, WindowHandle};
 use crate::state::State;
 use crate::{display_action::DisplayAction, models::FocusBehaviour};
 

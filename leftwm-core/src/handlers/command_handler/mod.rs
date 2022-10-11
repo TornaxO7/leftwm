@@ -5,15 +5,15 @@ mod scratchpad_handler;
 // details of the scratchpad handling code
 pub use scratchpad_handler::{Direction, ReleaseScratchPadOption};
 
-use super::*;
 use crate::display_action::DisplayAction;
 use crate::display_servers::DisplayServer;
 use crate::layouts::Layout;
-use crate::models::{TagId, WindowState};
+use crate::models::{TagId, WindowHandle, WindowState, WindowType};
 use crate::state::State;
 use crate::utils::helpers;
 use crate::utils::helpers::relative_find;
 use crate::{config::Config, models::FocusBehaviour};
+use crate::{Command, Manager, Window};
 
 impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
     /* When adding a command
@@ -733,7 +733,10 @@ fn send_workspace_to_tag(state: &mut State, ws_index: usize, tag_index: usize) -
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::models::Tags;
+    use crate::{
+        models::{Screen, Tags},
+        Manager,
+    };
 
     #[test]
     fn return_to_last_tag_should_go_back_to_last_tag() {

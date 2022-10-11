@@ -1,8 +1,7 @@
-use super::{Config, DisplayEvent, Manager, Mode};
 use crate::display_action::DisplayAction;
 use crate::display_servers::DisplayServer;
 use crate::models::WindowHandle;
-use crate::State;
+use crate::{State, Config, Manager, DisplayEvent, Mode};
 
 impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
     /// Process a collection of events, and apply them changes to a manager.

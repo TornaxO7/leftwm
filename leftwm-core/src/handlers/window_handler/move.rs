@@ -1,7 +1,7 @@
-use super::{Manager, Window, WindowHandle, Workspace};
+use crate::{Manager, Window, Workspace};
 use crate::config::Config;
 use crate::display_servers::DisplayServer;
-use crate::models::Xyhw;
+use crate::models::{Xyhw, WindowHandle};
 
 impl<C: Config, SERVER: DisplayServer> Manager<C, SERVER> {
     pub fn window_move_handler(

@@ -1,4 +1,5 @@
-use super::{Manager, Window, WindowHandle};
+use crate::models::WindowHandle;
+use crate::{Manager, Window};
 use crate::config::Config;
 use crate::display_servers::DisplayServer;
 
